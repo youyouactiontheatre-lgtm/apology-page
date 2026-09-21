@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小主折煞奴才了 🥺 诚恳求原谅！</title>
+    <style>
+        :root {
+            --pink-light: #FFE5EC;
+            --pink-medium: #FFB3C6;
+            --pink-dark: #FB6F92;
+            --text-color: #6C5860;
+        }
+
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: var(--pink-light);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(251, 111, 146, 0.2);
+            max-width: 450px;
+            width: 90%;
+            position: relative;
+            transition: all 0.5s ease;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            color: var(--pink-dark);
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .gif-placeholder {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            position: relative;
+            min-height: 50px;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        .btn-yes {
+            background-color: var(--pink-dark);
+            color: white;
+            box-shadow: 0 4px 15px rgba(251, 111, 146, 0.4);
+        }
+
+        .btn-no {
+            background-color: #E0E0E0;
+            color: #757575;
+            position: absolute;
+        }
+
+        input[type="date"] {
+            padding: 10px;
+            border: 2px solid var(--pink-medium);
+            border-radius: 10px;
+            font-size: 16px;
+            color: var(--text-color);
+            outline: none;
+            width: 80%;
+            margin-top: 10px;
+        }
+
+        .menu-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .menu-item {
+            padding: 15px;
+            border: 2px solid var(--pink-light);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 16px;
+            background: #FFF5F7;
+        }
+
+        .menu-item:hover {
+            border-color: var(--pink-medium);
+            background: var(--pink-light);
+        }
+
+        .menu-item.selected {
+            border-color: var(--pink-dark);
+            background: #FFE5EC;
+            color: var(--pink-dark);
+            font-weight: bold;
+        }
+
+        .summary-card {
+            background: #FFF5F7;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            border: 1px dashed var(--pink-dark);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="step1" class="step active">
+        <div class="gif-placeholder">🥺👉👈</div>
+        <h2>大人不记小人过嘛...</h2>
+        <p>我知道错啦！看到我不开心的样子，全世界的小熊都哭了。求求你原谅我好不好？不要生气啦~</p>
+        <div class="btn-group" id="btnGroup1">
+            <button class="btn-yes" onclick="nextStep(2)">好啦，免礼平身</button>
+            <button class="btn-no" id="btnNo" onmouseover="flyAway()" onclick="flyAway()">不，本宫没那么快消气</button>
+        </div>
+    </div>
+
+    <div id="step2" class="step">
+        <div class="gif-placeholder">🎉🥳✨</div>
+        <h2>耶！谢主隆恩！</h2>
+        <p>就知道你最好啦！为了表示诚意，诚挚邀请您共进“道歉赔罪宴”。请小主钦定一个黄道吉日：</p>
+        <input type="date" id="apologyDate" min="2026-09-21">
+        <div class="btn-group">
+            <button class="btn-yes" onclick="checkDate()">选好了，去挑好吃的 ➡️</button>
+        </div>
+    </div>
+
+    <div id="step3" class="step">
+        <div class="gif-placeholder">🍣🍰🥩</div>
+        <h2>今天你想吃点什么呢？</h2>
+        <p>全部由我买单，你只管负责快乐！请选择你的心动美食：</p>
+        <div class="menu-options">
+            <div class="menu-item" onclick="selectFood(this, '精致日本餐 🍣')">精致日本餐 🍣 (刺身、寿司、和牛...)</div>
+            <div class="menu-item" onclick="selectFood(this, '悠闲下午茶 🍰')">悠闲下午茶 🍰 (司康、精致蛋糕、特调咖啡...)</div>
+            <div class="menu-item" onclick="selectFood(this, '精美西餐 🥩')">精美西餐 🥩 (牛排、意面、微醺红酒...)</div>
+        </div>
+        <div class="btn-group">
+            <button class="btn-yes" onclick="submitSelection()">生成最终约定 ➡️</button>
+        </div>
+    </div>
+
+    <div id="step4" class="step">
+        <div class="gif-placeholder">❤️🤝🐰</div>
+        <h2>拉勾上吊，一百年不许变！</h2>
+        <p>我们的道歉饭局正式达标！截图传给我，奴才这就去订位置！</p>
+        <div class="summary-card">
+            <p><strong>约会日期：</strong> <span id="finalDate" style="color:var(--pink-dark); font-weight:bold;"></span></p>
+            <p><strong>美食主题：</strong> <span id="finalFood" style="color:var(--pink-dark); font-weight:bold;"></span></p>
+            <p><strong>惩罚条款：</strong> 某人必须全盘接受快乐，不准再嘟嘴！</p>
+        </div>
+        <p style="font-size: 12px; color: #aaa; margin-top: 15px;">✨ 倒计时开始，不见不散哦 ✨</p>
+    </div>
+</div>
+
+<script>
+    let selectedFood = "";
+
+    document.getElementById('apologyDate').min = new Date().toISOString().split('T')[0];
+
+    function nextStep(stepNum) {
+        document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+        document.getElementById(`step${stepNum}`).classList.add('active');
+    }
+
+    function flyAway() {
+        const btnNo = document.getElementById('btnNo');
+        const container = document.querySelector('.container');
+
+        const padding = 20;
+        const maxX = container.clientWidth - btnNo.clientWidth - padding;
+        const maxY = container.clientHeight - btnNo.clientHeight - padding;
+
+        const randomX = Math.floor(Math.random() * maxX) - (maxX / 2);
+        const randomY = Math.floor(Math.random() * maxY) - (maxY / 2);
+
+        btnNo.style.transform = `translate(${randomX}px, ${randomY}px)`;
+    }
+
+    function checkDate() {
+        const dateInput = document.getElementById('apologyDate').value;
+        if (!dateInput) {
+            alert("小主，请先挑选���个黄道吉日呀！📅");
+            return;
+        }
+        nextStep(3);
+    }
+
+    function selectFood(element, foodName) {
+        document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('selected'));
+        element.classList.add('selected');
+        selectedFood = foodName;
+    }
+
+    function submitSelection() {
+        if (!selectedFood) {
+            alert("小主，挑个美食赏光吧！🤤");
+            return;
+        }
+
+        const dateInput = document.getElementById('apologyDate').value;
+        document.getElementById('finalDate').innerText = dateInput;
+        document.getElementById('finalFood').innerText = selectedFood;
+
+        nextStep(4);
+    }
+</script>
+
+</body>
+</html>
